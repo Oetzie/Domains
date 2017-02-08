@@ -1,0 +1,9 @@
+.grid-row-inactive,
+.grid-row-inactive a,
+.grid-row-inactive .red,
+.grid-row-inactive .green,
+.grid-row-inactive .orange,
+.grid-row-inactive .desc,
+.inactive-checkbox {
+    color: rgba(173, 58, 58, 0.5) !important;
+}
