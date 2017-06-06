@@ -3,10 +3,7 @@
 	/**
 	 * Domains
 	 *
-	 * Copyright 2016 by Oene Tjeerd de Bruin <info@oetzie.nl>
-	 *
-	 * This file is part of Domains, a real estate property listings component
-	 * for MODX Revolution.
+	 * Copyright 2017 by Oene Tjeerd de Bruin <modx@oetzie.nl>
 	 *
 	 * Domains is free software; you can redistribute it and/or modify it under
 	 * the terms of the GNU General Public License as published by the Free Software
@@ -24,53 +21,60 @@
 
 	class DomainsDomainsUpdateProcessor extends modObjectUpdateProcessor {
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var String.
 		 */
 		public $classKey = 'DomainsDomains';
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var Array.
 		 */
 		public $languageTopics = array('domains:default');
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var String.
 		 */
 		public $objectType = 'domains.domains';
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var Object.
 		 */
 		public $domains;
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @return Mixed.
 		 */
 		public function initialize() {
 			$this->domains = $this->modx->getService('domains', 'Domains', $this->modx->getOption('domains.core_path', null, $this->modx->getOption('core_path').'components/domains/').'model/domains/');
-
-			if (null !== ($domain = $this->getProperty('domain'))) {
-				$this->setProperty('domain', str_replace(array('http://', 'https://'), '', rtrim($domain, '/')));
-			}
 			
 			if (null === $this->getProperty('active')) {
 				$this->setProperty('active', 0);
+			}
+			
+			if (null === $this->getProperty('primary')) {
+				$this->setProperty('primary', 0);
 			}
 
 			return parent::initialize();
 		}
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @return Mixed.
 		 */
 		public function beforeSave() {
+			$domain = $this->getProperty('domain');
 			$context = $this->getProperty('context');
+			
+			if (!preg_match('/^(http|https)/si', $domain)) {
+				$domain = 'http://'.rtrim($domain, '/').'/';
+			} else {
+				$domain = rtrim($domain, '/').'/';
+			}
 			
 			$criterea = array(
 				'id' => $this->getProperty('page_start')
@@ -103,7 +107,52 @@
 			} else {
 				$this->addFieldError('site_error_formatted', $this->modx->lexicon('domains.error_site_error'));
 			}
+			
+			$this->setProperty('domain', str_replace(array('http://', 'https://'), '', rtrim($domain, '/')));
 
+			if (1 == $this->getProperty('primary')) {
+				$criterea = array(
+					'context_key' 	=> $context,
+					'key'			=> 'site_url'
+				);
+		
+				if (null === ($setting = $this->modx->getObject('modContextSetting', $criterea))) {
+					$setting = $this->modx->newObject('modContextSetting');
+				}
+				
+				$setting->fromArray(array_merge($criterea, array(
+	                'xtype' 		=> 'textfield',
+	                'namespace' 	=> 'core',
+	                'area' 			=> 'site',
+	                'value'			=> $domain
+	            )), null, true);
+	            
+	            $setting->save();
+	            
+	            $criterea = array(
+		            'id:!='		=> $this->object->id,
+					'context' 	=> $context
+				);
+				
+				foreach ($this->modx->getCollection('DomainsDomains', $criterea) as $domain) {
+					$domain->fromArray(array(
+						'primary' => 0
+					));
+					
+					$domain->save();
+				}
+	        }
+	        
+	        $this->modx->cacheManager->refresh(array(
+                'db' 				=> array(),
+                'context_settings' 	=> array(
+                	'contexts' 			=> array($context)
+                ),
+                'resource' 			=> array(
+                	'contexts' 			=> array($context)
+                )
+            ));
+			
 			return parent::beforeSave();
 		}
 	}

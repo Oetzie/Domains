@@ -3,10 +3,7 @@
 	/**
 	 * Domains
 	 *
-	 * Copyright 2016 by Oene Tjeerd de Bruin <info@oetzie.nl>
-	 *
-	 * This file is part of Domains, a real estate property listings component
-	 * for MODX Revolution.
+	 * Copyright 2017 by Oene Tjeerd de Bruin <modx@oetzie.nl>
 	 *
 	 * Domains is free software; you can redistribute it and/or modify it under
 	 * the terms of the GNU General Public License as published by the Free Software
@@ -27,10 +24,6 @@
 	
 	$_lang['area_domains']												= 'Domain names';
 
-	$_lang['domains_snippet_exclude_desc']								= 'The context to exclude. Use a comma to separate multiple contexts.';
-	$_lang['domains_snippet_tpl_desc']									= 'The template of a domain name. This can start with @INLINE:, @CHUNK: or chunk name.';
-	$_lang['domains_snippet_tplwrapper_desc']							= 'The template wrapper of the domain names. This can start with @INLINE:, @CHUNK: or chunk name.';
-	
 	$_lang['domains.domain']											= 'Domain name';
 	$_lang['domains.domains']											= 'Domain names';
 	$_lang['domains.domains_desc']										= 'Here you can manage all the domain names of your website. The settings of the domain names will overrule the system and context settings.';
@@ -57,6 +50,7 @@
 	
 	$_lang['domains.online']											= 'Online';
 	$_lang['domains.offline']											= 'Offline';
+	$_lang['domains.primary_domain']									= 'This domain name is the primary domain for this context and overrules the "site_url" context setting.';
 	$_lang['domains.error_site_start']									= 'The selected startpage does not exists. Define another startpage.';
 	$_lang['domains.error_site_start_context']							= 'The selected startpage doest not exists in the current context. Define another startpage..';
 	$_lang['domains.error_site_start_deleted']							= 'The selected startpage is deleted. Define another startpage.';
@@ -65,5 +59,6 @@
 	$_lang['domains.error_site_error_context']							= 'The selected 404 page doest not exists in the current context. Define another 404 page..';
 	$_lang['domains.error_site_error_deleted']							= 'The selected 404 page is deleted. Define another 404 page.';
 	$_lang['domains.error_site_error_published']						= 'The selected 404 page is not published. Define another 404 page.';
+	$_lang['domains.error_remove_primary']								= 'This domain name is the primary domain for a context and cant be removed.';
 	
 ?>

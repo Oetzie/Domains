@@ -3,10 +3,7 @@
 	/**
 	 * Domains
 	 *
-	 * Copyright 2016 by Oene Tjeerd de Bruin <info@oetzie.nl>
-	 *
-	 * This file is part of Domains, a real estate property listings component
-	 * for MODX Revolution.
+	 * Copyright 2017 by Oene Tjeerd de Bruin <modx@oetzie.nl>
 	 *
 	 * Domains is free software; you can redistribute it and/or modify it under
 	 * the terms of the GNU General Public License as published by the Free Software
@@ -24,43 +21,43 @@
 
 	class DomainsDomainsGetListProcessor extends modObjectGetListProcessor {
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var String.
 		 */
 		public $classKey = 'DomainsDomains';
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var Array.
 		 */
 		public $languageTopics = array('domains:default');
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var String.
 		 */
 		public $defaultSortField = 'id';
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var String.
 		 */
 		public $defaultSortDirection = 'DESC';
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var String.
 		 */
 		public $objectType = 'domains.domains';
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var Object.
 		 */
 		public $domains;
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @return Mixed.
 		 */
 		public function initialize() {
@@ -74,7 +71,7 @@
 		}
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @param Object $c.
 		 * @return Object.
 		 */
@@ -91,7 +88,7 @@
 		}
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @param Object $query.
 		 * @return Array.
 		 */

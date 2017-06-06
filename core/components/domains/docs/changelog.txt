@@ -3,6 +3,14 @@ Domains
 ----------------------
 
 ----------------------
+Version: 1.0.2-pl
+Released: 2017-06-06
+----------------------
+- Bugfixes
+- Connector includes fixed for custom core path
+- Permissions added
+
+----------------------
 Version: 1.0.1-pl
 Released: 2017-02-08
 ----------------------

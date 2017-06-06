@@ -3,10 +3,7 @@
 	/**
 	 * Domains
 	 *
-	 * Copyright 2016 by Oene Tjeerd de Bruin <info@oetzie.nl>
-	 *
-	 * This file is part of Domains, a real estate property listings component
-	 * for MODX Revolution.
+	 * Copyright 2017 by Oene Tjeerd de Bruin <modx@oetzie.nl>
 	 *
 	 * Domains is free software; you can redistribute it and/or modify it under
 	 * the terms of the GNU General Public License as published by the Free Software
@@ -24,19 +21,19 @@
 
 	class Domains {
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var Object.
 		 */
 		public $modx;
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var Array.
 		 */
 		public $config = array();
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @param Object $modx.
 		 * @param Array $config.
 		 */
@@ -49,7 +46,6 @@
 		
 			$this->config = array_merge(array(
 				'namespace'				=> $this->modx->getOption('namespace', $config, 'domains'),
-				'helpurl'				=> $this->modx->getOption('namespace', $config, 'domains'),
 				'lexicons'				=> array('domains:default'),
 				'base_path'				=> $corePath,
 				'core_path' 			=> $corePath,
@@ -66,6 +62,10 @@
 				'css_url' 				=> $assetsUrl.'css/',
 				'assets_url' 			=> $assetsUrl,
 				'connector_url'			=> $assetsUrl.'connector.php',
+				'version'				=> '1.0.2',
+				'branding'				=> (boolean) $this->modx->getOption('domains.branding', null, true),
+				'branding_url'			=> 'http://www.oetzie.nl',
+				'branding_help_url'		=> 'http://www.werkvanoetzie.nl/extras/domains',
 				'context'				=> $this->getContexts()
 			), $config);
 		
@@ -81,54 +81,21 @@
 		}
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @return String.
 		 */
 		public function getHelpUrl() {
-			return $this->config['helpurl'];
+			return $this->config['branding_help_url'].'?v='.$this->config['version'];
 		}
 		
 		/**
-		 * @acces private.
+		 * @access private.
 		 * @return Boolean.
 		 */
 		private function getContexts() {
 			return 1 == $this->modx->getCount('modContext', array(
 				'key:!=' => 'mgr'
 			));
-		}
-		
-		/**
-		 * @acces public.
-		 * @param String $tpl.
-		 * @param Array $properties.
-		 * @param String $type.
-		 * @return String.
-		 */
-		public function getTemplate($template, $properties = array(), $type = 'CHUNK') {
-			if (0 === strpos($template, '@')) {
-				$type 		= substr($template, 1, strpos($template, ':') - 1);
-				$template	= substr($template, strpos($template, ':') + 1, strlen($template));
-			}
-			
-			switch (strtoupper($type)) {
-				case 'INLINE':
-					$chunk = $this->modx->newObject('modChunk', array(
-						'name' => $this->config['namespace'].uniqid()
-					));
-				
-					$chunk->setCacheable(false);
-				
-					$output = $chunk->process($properties, ltrim($template));
-				
-					break;
-				case 'CHUNK':
-					$output = $this->modx->getChunk(ltrim($template), $properties);
-				
-					break;
-			}
-			
-			return $output;
 		}
 	}
 	

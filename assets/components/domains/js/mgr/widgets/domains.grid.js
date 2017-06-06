@@ -2,10 +2,10 @@ Domains.grid.Domains = function(config) {
     config = config || {};
 
 	config.tbar = [{
-        text	: _('domains.domain_create'),
-        cls		:'primary-button',
-        handler	: this.createDomain,
-        scope	: this
+        text		: _('domains.domain_create'),
+        cls			: 'primary-button',
+        handler		: this.createDomain,
+        scope		: this
     }, '->', {
         xtype		: 'textfield',
         name 		: 'domains-filter-search',
@@ -92,9 +92,7 @@ Domains.grid.Domains = function(config) {
         baseParams	: {
         	action		: 'mgr/domains/getlist'
         },
-        autosave	: true,
-        save_action	: 'mgr/domains/updatefromgrid',
-        fields		: ['id', 'domain', 'context', 'error', 'context_name', 'language', 'site_status', 'page_start', 'page_start_formatted', 'page_error', 'page_error_formatted', 'position', 'active', 'editedon'],
+        fields		: ['id', 'domain', 'context', 'error', 'context_name', 'language', 'site_status', 'page_start', 'page_start_formatted', 'page_error', 'page_error_formatted', 'primary', 'active', 'editedon'],
         paging		: true,
         pageSize	: MODx.config.default_per_page > 30 ? MODx.config.default_per_page : 30,
         sortBy		: 'id',
@@ -118,16 +116,22 @@ Ext.extend(Domains.grid.Domains, MODx.grid.Grid, {
         this.getBottomToolbar().changePage(1);
     },
     getMenu: function() {
-        return [{
+        var menu = [{
 	        text	: _('domains.domain_update'),
 	        handler	: this.updateDomain
 	    }, {
 	        text	: _('domains.domain_duplicate'),
 	        handler	: this.duplicateDomain
-	    }, '-', {
-		    text	: _('domains.domain_remove'),
-		    handler	: this.removeDomain
-		 }];
+	    }];
+	    
+	    if (1 != parseInt(this.menu.record.primary) || !this.menu.record.primary) {
+		    menu.push('-', {
+			    text	: _('domains.domain_remove'),
+			    handler	: this.removeDomain
+			});
+		}
+		
+		return menu;
     },
     createDomain: function(btn, e) {
         if (this.createDomainWindow) {
@@ -136,13 +140,13 @@ Ext.extend(Domains.grid.Domains, MODx.grid.Grid, {
         
         this.createDomainWindow = MODx.load({
 	        xtype		: 'domains-window-domain-create',
-	        closeAction	:'close',
+	        closeAction	: 'close',
 	        listeners	: {
 		        'success'	: {
 		        	fn			: this.refresh,
 		        	scope		: this
 		        }
-	         }
+	        }
         });
         
         this.createDomainWindow.show(e.target);
@@ -155,13 +159,13 @@ Ext.extend(Domains.grid.Domains, MODx.grid.Grid, {
         this.updateDomainWindow = MODx.load({
 	        xtype		: 'domains-window-domain-update',
 	        record		: this.menu.record,
-	        closeAction	:'close',
+	        closeAction	: 'close',
 	        listeners	: {
 		        'success'	: {
 		        	fn			: this.refresh,
 		        	scope		: this
 		        }
-	         }
+	        }
         });
         
         this.updateDomainWindow.setValues(this.menu.record);
@@ -179,13 +183,13 @@ Ext.extend(Domains.grid.Domains, MODx.grid.Grid, {
         this.duplicateDomainWindow = MODx.load({
 	        xtype		: 'domains-window-domain-duplicate',
 	        record		: record,
-	        closeAction	:'close',
+	        closeAction	: 'close',
 	        listeners	: {
 		        'success'	: {
 		        	fn			: this.refresh,
 		        	scope		: this
 		        }
-	         }
+	        }
         });
 
         this.duplicateDomainWindow.setValues(record);
@@ -368,6 +372,12 @@ Domains.window.CreateDomain = function(config) {
 		            cls			: 'desc-under'
 		        }]
         	}]
+        }, {
+	        xtype 		: 'checkbox',
+	        hideLabel	: true,
+	        boxLabel	: _('domains.primary_domain'),
+	        name		: 'primary',
+	        inputValue	: 1
         }]
     });
     
@@ -519,6 +529,12 @@ Domains.window.UpdateDomain = function(config) {
 		            cls			: 'desc-under'
 		        }]
         	}]
+        }, {
+	        xtype 		: 'checkbox',
+	        hideLabel	: true,
+	        boxLabel	: _('domains.primary_domain'),
+	        name		: 'primary',
+	        inputValue	: 1
         }]
     });
     

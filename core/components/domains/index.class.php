@@ -3,10 +3,7 @@
 	/**
 	 * Domains
 	 *
-	 * Copyright 2016 by Oene Tjeerd de Bruin <info@oetzie.nl>
-	 *
-	 * This file is part of Domains, a real estate property listings component
-	 * for MODX Revolution.
+	 * Copyright 2017 by Oene Tjeerd de Bruin <modx@oetzie.nl>
 	 *
 	 * Domains is free software; you can redistribute it and/or modify it under
 	 * the terms of the GNU General Public License as published by the Free Software
@@ -24,13 +21,13 @@
 
 	abstract class DomainsManagerController extends modExtraManagerController {
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @var Object.
 		 */
 		public $domains;
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @return Mixed.
 		 */
 		public function initialize() {
@@ -40,7 +37,7 @@
 			
 			$this->addHtml('<script type="text/javascript">
 				Ext.onReady(function() {
-					MODx.config.help_url = "http://rtfm.modx.com/extras/revo/'.$this->domains->getHelpUrl().'";
+					MODx.config.help_url = "'.$this->domains->getHelpUrl().'";
 			
 					Domains.config = '.$this->modx->toJSON($this->domains->config).';
 				});
@@ -50,7 +47,7 @@
 		}
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @return Array.
 		 */
 		public function getLanguageTopics() {
@@ -58,17 +55,17 @@
 		}
 		
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @returns Boolean.
 		 */	    
 		public function checkPermissions() {
-			return true;
+			return $this->modx->hasPermission('domains');
 		}
 	}
 		
 	class IndexManagerController extends DomainsManagerController {
 		/**
-		 * @acces public.
+		 * @access public.
 		 * @return String.
 		 */
 		public static function getDefaultController() {

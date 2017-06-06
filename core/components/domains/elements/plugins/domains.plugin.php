@@ -3,10 +3,7 @@
     /**
 	 * Domains
 	 *
-	 * Copyright 2016 by Oene Tjeerd de Bruin <info@oetzie.nl>
-	 *
-	 * This file is part of Domains, a real estate property listings component
-	 * for MODX Revolution.
+	 * Copyright 2017 by Oene Tjeerd de Bruin <modx@oetzie.nl>
 	 *
 	 * Domains is free software; you can redistribute it and/or modify it under
 	 * the terms of the GNU General Public License as published by the Free Software
@@ -41,6 +38,12 @@
     					if (null !== ($domain = $modx->getObject('DomainsDomains', $criterea))) {
 					        $modx->switchContext($domain->context);
 					        
+					        if (!preg_match('/^(http|https)/si', $domain->domain)) {
+								$modx->setOption('site_url', 'http://'.rtrim($domain->domain, '/').'/');
+							} else {
+								$modx->setOption('site_url', rtrim($domain->domain, '/').'/');
+							}
+
 					        $modx->setOption('site_status', $domain->site_status);
 					        $modx->setOption('site_start', $domain->page_start);
 					        $modx->setOption('error_page', $domain->page_error);
