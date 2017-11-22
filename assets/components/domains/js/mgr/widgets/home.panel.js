@@ -4,22 +4,12 @@ Domains.panel.Home = function(config) {
     Ext.apply(config, {
         id			: 'domains-panel-home',
         cls			: 'container',
-        defaults	: {
-        	collapsible	: false,
-        	autoHeight	: true,
-        	border 		: false
-        },
         items		: [{
             html		: '<h2>'+_('domains')+'</h2>',
             id			: 'domains-header',
             cls			: 'modx-page-header'
         }, {
         	layout		: 'form',
-        	border 		: true,
-            defaults	: {
-            	autoHeight	: true,
-            	border		: false
-            },
             items		: [{
             	html			: '<p>' + _('domains.domains_desc') + '</p>',
                 bodyCssClass	: 'panel-desc'
