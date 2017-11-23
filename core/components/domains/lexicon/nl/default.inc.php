@@ -31,7 +31,7 @@
     
     $_lang['domains.domain']                                            = 'Domeinnaam';
     $_lang['domains.domains']                                           = 'Domeinnamen';
-    $_lang['domains.domains_desc']                                      = 'Hier kun je alle domeinnamen beheren voor jouw website. De instellingen van de domeinnamen overschrijden de systeem en context instellingen.';
+    $_lang['domains.domains_desc']                                      = 'Hier kun je alle domeinnamen beheren voor jouw website. Elke domeinnaam kun je koppelen aan een of meerdere contexten. De instellingen van de domeinnamen overschrijden de systeem en context instellingen.';
     $_lang['domains.domain_create']                                     = 'Nieuw domeinnaam';
     $_lang['domains.domain_update']                                     = 'Domeinnaam wijzigen';
     $_lang['domains.domain_remove']                                     = 'Domeinnaam verwijderen';

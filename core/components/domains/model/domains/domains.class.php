@@ -120,37 +120,37 @@
          */
         public function run($properties = array()) {
             $base   = '/';
-	        $uri    = $_SERVER['REQUEST_URI'];
-			
-			if ('' != ($path = trim($_SERVER['REQUEST_URI'], '/'))) {
+            $uri    = $_SERVER['REQUEST_URI'];
+            
+            if ('' != ($path = trim($_SERVER['REQUEST_URI'], '/'))) {
                 $path = explode('/', $path, 2);
-                
+            
                 if (isset($path[0])) {
                     $base = '/'.trim($path[0], '/').'/';
                 }
-                
+            
                 if (isset($path[1])) {
                     $uri = trim($path[1]);
                 } else {
                     $uri = '/';
                 }
-			}
+            }
             
-			$c = $this->modx->newQuery('DomainsDomains');
-			
-			$c->where(array(
+            $c = $this->modx->newQuery('DomainsDomains');
+            
+            $c->where(array(
                 array(
-                    'domain:='    => trim($_SERVER['HTTP_HOST'], '/'),
-                    'OR:domain:=' => str_replace('www.', '', trim($_SERVER['HTTP_HOST'], '/'))
+                    'domain:='      => trim($_SERVER['HTTP_HOST'], '/'),
+                    'OR:domain:='   => str_replace('www.', '', trim($_SERVER['HTTP_HOST'], '/'))
                 ),
-			    'active'    => 1
-			));
-			
-			foreach ($this->modx->getCollection('DomainsDomains', $c) as $object) {
-			    if ('/' == $object->get('base') || $base == $object->get('base')) {
+                'active' => 1
+            ));
+            
+            foreach ($this->modx->getCollection('DomainsDomains', $c) as $object) {
+                if ('/' == $object->get('base') || $base == $object->get('base')) {
                     $this->modx->switchContext($object->get('context'));
-			        
-			        $this->modx->setOption('cultureKey', $object->get('language'));
+                    
+                    $this->modx->setOption('cultureKey', $object->get('language'));
                     $this->modx->setOption('site_status', $object->get('site_status'));
                     $this->modx->setOption('site_start', $object->get('page_start'));
                     $this->modx->setOption('error_page', $object->get('page_error'));
@@ -163,12 +163,12 @@
                     ), '+');
                     
                     if ('/' != $object->get('base')) {
-			            $_REQUEST[$this->modx->getOption('request_param_alias', null, 'q')] = trim($uri, '/');
-			        }
-			        
-			        break;
-			    }
-			}
+                        $_REQUEST[$this->modx->getOption('request_param_alias', null, 'q')] = trim($uri, '/');
+                    }
+                    
+                    break;
+                }
+            }
         }
     }
 	

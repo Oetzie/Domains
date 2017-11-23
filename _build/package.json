@@ -15,7 +15,7 @@
     "elements"      : {
         "plugins"       : [{
             "name"          : "Domains",
-            "description"   : "Domains 1.3.0-pl snippet for MODx Revolution",
+            "description"   : "Domains 1.0.3-pl snippet for MODx Revolution",
             "resolver"      : "elements/plugins/domains.plugin.php",
             "events"        : ["OnHandleRequest"]
         }]
