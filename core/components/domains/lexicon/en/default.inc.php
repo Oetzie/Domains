@@ -50,7 +50,7 @@
 	
 	$_lang['domains.online']											= 'Online';
 	$_lang['domains.offline']											= 'Offline';
-	$_lang['domains.primary_domain']									= 'This domain name is the primary domain for this context and overrules the "site_url" context setting.';
+	$_lang['domains.primary_domain']									= 'This domain name is the primary domain for this context and overrules the physical context settings.';
 	$_lang['domains.error_site_start']									= 'The selected startpage does not exists. Define another startpage.';
 	$_lang['domains.error_site_start_context']							= 'The selected startpage doest not exists in the current context. Define another startpage..';
 	$_lang['domains.error_site_start_deleted']							= 'The selected startpage is deleted. Define another startpage.';

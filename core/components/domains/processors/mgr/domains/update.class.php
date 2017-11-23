@@ -68,21 +68,33 @@
          */
         public function beforeSave() {
             $scheme     = 'http';
+            $base       = '/';
             $domain     = $this->getProperty('domain');
             $context    = $this->getProperty('context');
             
             if (!preg_match('/^(http|https)/si', $domain)) {
-                $domain = 'http://'.rtrim($domain, '/').'/';
-            } else {
-                $domain = rtrim($domain, '/').'/';
+                $domain = $scheme.'//'.$domain;
+            }
             
-                if (preg_match('/^https/si', $domain)) {
-                    $scheme = 'https';
+            if (false !== ($parts = parse_url($domain))) {
+                if (isset($parts['scheme'])) {
+                    $scheme = $parts['scheme'];
+                }
+                
+                if (isset($parts['host'])) {
+                    $domain = trim($parts['host'], '/');
+                }
+                
+                if (isset($parts['path'])) {
+                    if ('' != ($path = trim($parts['path'], '/'))) {
+                        $base = '/'.$path.'/';
+                    }
                 }
             }
         
             $this->object->set('domain', $domain);
             $this->object->set('scheme', $scheme);
+            $this->object->set('base', $base);
         
             $c = array(
                 'id' => $this->getProperty('page_start')
@@ -123,14 +135,15 @@
                         'site_status'       => $this->getProperty('site_status'),
                         'site_start'        => $this->getProperty('page_start'),
                         'error_page'        => $this->getProperty('page_error'),
-                        'site_url'          => $domain,
+                        'site_url'          => $scheme.'://'.$domain.$base,
+                        'base_url'          => $base,
                         'link_tag_scheme'   => $scheme
                     );
                     
                     foreach ($settings as $key => $value) {
                         $c = array(
-                            'context_key' 	=> $context,
-                            'key'			=> $key
+                            'context_key'   => $context,
+                            'key'           => $key
                         );
             
                         if (null === ($setting = $this->modx->getObject('modContextSetting', $c))) {
@@ -150,7 +163,8 @@
                     }
             
                     $c = array(
-                        'context' => $context
+                        'id:!='     => $this->object->get('id'),
+                        'context'   => $context
                     );
             
                     foreach ($this->modx->getCollection('DomainsDomains', $c) as $domain) {
@@ -166,7 +180,7 @@
             $this->modx->cacheManager->refresh(array(
                 'db'                => array(),
                 'context_settings'  => array(
-                    'contexts'      => array($context)
+                    'contexts'          => array($context)
                 ),
                 'resource'          => array(
                     'contexts'          => array($context)
