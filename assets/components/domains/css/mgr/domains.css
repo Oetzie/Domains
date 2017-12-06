@@ -14,3 +14,13 @@
 .inactive-checkbox {
     color: rgba(173, 58, 58, 0.5) !important;
 }
+
+.grid-icon.icon-lock {
+    width: 16px;
+    color: #6cb24a;
+}
+
+.grid-icon.icon-unlock {
+    width: 16px;
+    color: #be0000;
+}

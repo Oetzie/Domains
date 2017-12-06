@@ -207,8 +207,8 @@ Ext.extend(Domains.grid.Domains, MODx.grid.Grid, {
             }
         });
     },
-    renderDomain: function(d) {
-        return String.format('<a href="{0}" target="_blank" title="{1}">{2}</a>', d, d, d);  
+    renderDomain: function(d, c, e) {
+        return String.format('<i class="icon icon-{0} grid-icon"></i> <a href="{1}" target="_blank" title="{2}">{3}</a>', ('https' == e.json.scheme ? 'lock' : 'unlock'), d, d, d, d);  
     },
     renderSiteStatus: function(d, c) {
         c.css = 1 == parseInt(d) || d ? 'green' : 'red';
