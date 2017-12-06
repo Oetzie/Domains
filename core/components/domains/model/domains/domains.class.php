@@ -62,7 +62,7 @@
                 'css_url'               => $assetsUrl.'css/',
                 'assets_url'            => $assetsUrl,
                 'connector_url'         => $assetsUrl.'connector.php',
-                'version'               => '1.0.3',
+                'version'               => '1.0.4',
                 'branding_url'          => $this->modx->getOption('domains.branding_url', null, ''),
                 'branding_help_url'     => $this->modx->getOption('domains.branding_url_help', null, ''),
                 'context'               => $this->getContexts()
@@ -145,6 +145,9 @@
                 ),
                 'active' => 1
             ));
+            
+            $c->sortby('domain', 'ASC');
+            $c->sortby('base', 'DESC');
             
             foreach ($this->modx->getCollection('DomainsDomains', $c) as $object) {
                 if ('/' == $object->get('base') || $base == $object->get('base')) {

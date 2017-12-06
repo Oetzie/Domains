@@ -3,7 +3,7 @@
     "namespace"     : "domains",
     "signature"     : "domains",
     "description"   : "",
-    "version"       : "1.0.3-pl",
+    "version"       : "1.0.4-pl",
     "menu"          : [{
         "text"          : "domains",
         "description"   : "domains.desc",
@@ -15,7 +15,7 @@
     "elements"      : {
         "plugins"       : [{
             "name"          : "Domains",
-            "description"   : "Domains 1.0.3-pl snippet for MODx Revolution",
+            "description"   : "Domains 1.0.4-pl plugin for MODx Revolution",
             "resolver"      : "elements/plugins/domains.plugin.php",
             "events"        : ["OnHandleRequest"]
         }]
