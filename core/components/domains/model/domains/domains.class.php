@@ -120,9 +120,10 @@
          */
         public function run($properties = array()) {
             $base   = '/';
-            $uri    = $_SERVER['REQUEST_URI'];
+            $param  = $this->modx->getOption('request_param_alias', null, 'q');
+            $uri    = $_REQUEST[$param];
             
-            if ('' != ($path = trim($_SERVER['REQUEST_URI'], '/'))) {
+            if ('' != ($path = trim($_REQUEST[$param], '/'))) {
                 $path = explode('/', $path, 2);
             
                 if (isset($path[0])) {
@@ -166,9 +167,9 @@
                     ), '+');
                     
                     if ('/' != $object->get('base')) {
-                        $_REQUEST[$this->modx->getOption('request_param_alias', null, 'q')] = trim($uri, '/');
+                        $_REQUEST[$param] = trim($uri, '/');
                     }
-                    
+
                     break;
                 }
             }
