@@ -9,24 +9,24 @@ Domains.page.Home = function(config) {
     
     if (Domains.config.branding_url) {
         config.buttons.push({
-            text 		: 'Domains ' + Domains.config.version,
-            cls			: 'x-btn-branding',
-            handler		: this.loadBranding
+            text    : 'Domains ' + Domains.config.version,
+            cls     : 'x-btn-branding',
+            handler	: this.loadBranding
         });
     }
     
     if (Domains.config.branding_url_help) {
         config.buttons.push({
-            text		: _('help_ex'),
-            handler		: MODx.loadHelpPane,
-            scope		: this
+            text    : _('help_ex'),
+            handler	: MODx.loadHelpPane,
+            scope   : this
         });
     }
     
     Ext.applyIf(config, {
-        components	: [{
-            xtype		: 'domains-panel-home',
-            renderTo	: 'domains-panel-home-div'
+        components  : [{
+            xtype       : 'domains-panel-home',
+            renderTo    : 'domains-panel-home-div'
         }]
     });
     

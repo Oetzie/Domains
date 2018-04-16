@@ -1,5 +1,5 @@
 # MODX Domains
-![Domains version](https://img.shields.io/badge/version-1.0.3-blue.svg) ![MODX Extra by Oetzie.nl](https://img.shields.io/badge/checked%20by-oetzie-blue.svg) ![MODX version requirements](https://img.shields.io/badge/modx%20version%20requirement-2.4%2B-brightgreen.svg)
+![Domains version](https://img.shields.io/badge/version-1.0.6-blue.svg) ![MODX Extra by Oetzie.nl](https://img.shields.io/badge/checked%20by-oetzie-blue.svg) ![MODX version requirements](https://img.shields.io/badge/modx%20version%20requirement-2.4%2B-brightgreen.svg)
 
 ## Domains
 Let's say you are developing a website for a multinational company, they probably want you to serve each nationality with its own content. In order to realize this, you have to add the client's content in multiple languages by using MODX's contexts. By using domains, you make sure that each visitor gets served with the right context. But how do you link the right domain to the right context?

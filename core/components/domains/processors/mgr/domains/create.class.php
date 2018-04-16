@@ -1,22 +1,9 @@
 <?php
 	
     /**
-    * Domains
-    *
-    * Copyright 2017 by Oene Tjeerd de Bruin <modx@oetzie.nl>
-    *
-    * Domains is free software; you can redistribute it and/or modify it under
-    * the terms of the GNU General Public License as published by the Free Software
-    * Foundation; either version 2 of the License, or (at your option) any later
-    * version.
-    *
-    * Domains is distributed in the hope that it will be useful, but WITHOUT ANY
-    * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
-    * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License along with
-    * Domains; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
-    * Suite 330, Boston, MA 02111-1307 USA
+     * Domains
+     *
+     * Copyright 2018 by Oene Tjeerd de Bruin <modx@oetzie.nl>
     */
     
     class DomainsDomainsCreateProcessor extends modObjectCreateProcessor {
@@ -24,32 +11,26 @@
          * @access public.
          * @var String.
          */
-        public $classKey = 'DomainsDomains';
+        public $classKey = 'DomainsDomain';
         
         /**
          * @access public.
          * @var Array.
          */
-        public $languageTopics = array('domains:default');
+        public $languageTopics = ['domains:default'];
         
         /**
          * @access public.
          * @var String.
          */
-        public $objectType = 'domains.domains';
-        
-        /**
-         * @access public.
-         * @var Object.
-         */
-        public $domains;
+        public $objectType = 'domains.domain';
     
         /**
          * @access public.
          * @return Mixed.
          */
         public function initialize() {
-            $this->domains = $this->modx->getService('domains', 'Domains', $this->modx->getOption('domains.core_path', null, $this->modx->getOption('core_path').'components/domains/').'model/domains/');
+            $this->modx->getService('domains', 'Domains', $this->modx->getOption('domains.core_path', null, $this->modx->getOption('core_path') . 'components/domains/') . 'model/domains/');
             
             if (null === $this->getProperty('active')) {
                 $this->setProperty('active', 0);
@@ -96,9 +77,9 @@
             $this->object->set('scheme', $scheme);
             $this->object->set('base', $base);
         
-            $c = array(
+            $c = [
                 'id' => $this->getProperty('page_start')
-            );
+            ];
         
             if (null !== ($resource = $this->modx->getObject('modResource', $c))) {
                 if ($context != $resource->get('context_key')) {
@@ -112,9 +93,9 @@
                 $this->addFieldError('page_start_formatted', $this->modx->lexicon('domains.error_site_start'));
             }
         
-            $c = array(
+            $c = [
                 'id' => $this->getProperty('page_error')
-            );
+            ];
         
             if (null !== ($resource = $this->modx->getObject('modResource', $c))) {
                 if ($context != $resource->get('context_key')) {
@@ -130,62 +111,62 @@
         
             if (!$this->hasErrors()) {
                 if (1 == $this->getProperty('primary')) {
-                    $settings = array(
+                    $settings = [
                         'cultureKey'        => $this->getProperty('language'),
                         'site_status'       => $this->getProperty('site_status'),
                         'site_start'        => $this->getProperty('page_start'),
                         'error_page'        => $this->getProperty('page_error'),
-                        'site_url'          => $scheme.'://'.$domain.$base,
+                        'site_url'          => $scheme . '://' . $domain.$base,
                         'base_url'          => $base,
                         'link_tag_scheme'   => $scheme
-                    );
+                    ];
                     
                     foreach ($settings as $key => $value) {
-                        $c = array(
+                        $c = [
                             'context_key'   => $context,
                             'key'           => $key
-                        );
+                        ];
             
                         if (null === ($setting = $this->modx->getObject('modContextSetting', $c))) {
                             $setting = $this->modx->newObject('modContextSetting');
                         }
             
-                        $setting->fromArray(array(
+                        $setting->fromArray([
                             'context_key'   => $context,
                             'key'           => $key,
                             'xtype'         => 'textfield',
                             'namespace'     => 'core',
                             'area'          => 'site',
                             'value'         => $value
-                        ), null, true);
+                        ], null, true);
             
                         $setting->save();
                     }
             
-                    $c = array(
+                    $c = [
                         'id:!='     => $this->object->get('id'),
                         'context'   => $context
-                    );
+                    ];
             
-                    foreach ($this->modx->getCollection('DomainsDomains', $c) as $domain) {
-                        $domain->fromArray(array(
+                    foreach ($this->modx->getCollection($this->classKey, $c) as $domain) {
+                        $domain->fromArray([
                             'primary' => 0
-                        ));
+                        ]);
                         
                         $domain->save();
                     }
                 }
             }
             
-            $this->modx->cacheManager->refresh(array(
-                'db'                => array(),
-                'context_settings'  => array(
-                    'contexts'          => array($context)
-                ),
-                'resource'          => array(
-                    'contexts'          => array($context)
-                )
-            ));
+            $this->modx->cacheManager->refresh([
+                'db'                => [],
+                'context_settings'  => [
+                    'contexts'          => [$context]
+                ],
+                'resource'          => [
+                    'contexts'          => [$context]
+                ]
+            ]);
         
             return parent::beforeSave();
         }

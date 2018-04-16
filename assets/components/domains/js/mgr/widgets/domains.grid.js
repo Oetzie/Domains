@@ -59,8 +59,8 @@ Domains.grid.Domains = function(config) {
             dataIndex	: 'context_name',
             sortable	: true,
             editable	: false,
-            width		: 150,
-            fixed		: true
+            width       : 150,
+            fixed       : true
         }, {
             header      : _('domains.label_site_status'),
             dataIndex   : 'site_status',
@@ -87,7 +87,7 @@ Domains.grid.Domains = function(config) {
         baseParams  : {
             action      : 'mgr/domains/getlist'
         },
-        fields      : ['id', 'domain', 'base', 'scheme', 'context', 'language', 'site_status', 'page_start', 'page_error', 'primary', 'active', 'editedon', 'page_start_formatted', 'page_error_formatted', 'context_name'],
+        fields      : ['id', 'domain', 'base', 'scheme', 'context', 'language', 'site_status', 'page_start', 'page_error', 'emailsender', 'primary', 'active', 'editedon', 'page_start_formatted', 'page_error_formatted', 'context_name'],
         paging      : true,
         pageSize    : MODx.config.default_per_page > 30 ? MODx.config.default_per_page : 30,
         sortBy      : 'id',
@@ -112,16 +112,16 @@ Ext.extend(Domains.grid.Domains, MODx.grid.Grid, {
     },
     getMenu: function() {
         var menu = [{
-            text    : _('domains.domain_update'),
+            text    : '<i class="x-menu-item-icon icon icon-edit"></i>' + _('domains.domain_update'),
             handler : this.updateDomain
         }, {
-            text    : _('domains.domain_duplicate'),
+            text    : '<i class="x-menu-item-icon icon icon-copy"></i>' + _('domains.domain_duplicate'),
             handler : this.duplicateDomain
         }];
         
         if (1 != parseInt(this.menu.record.primary) || !this.menu.record.primary) {
             menu.push('-', {
-                text    : _('domains.domain_remove'),
+                text    : '<i class="x-menu-item-icon icon icon-times"></i>' + _('domains.domain_remove'),
                 handler : this.removeDomain
             });
         }
@@ -156,7 +156,7 @@ Ext.extend(Domains.grid.Domains, MODx.grid.Grid, {
             record      : this.menu.record,
             closeAction : 'close',
             listeners   : {
-                'success'	: {
+                'success'   : {
                     fn          : this.refresh,
                     scope       : this
                 }
@@ -274,7 +274,6 @@ Domains.window.CreateDomain = function(config) {
                         }]
                     }, {
                         columnWidth : .2,
-                        style       : 'margin-right: 0;',
                         items       : [{
                             xtype       : 'checkbox',
                             fieldLabel  : _('domains.label_active'),
@@ -322,10 +321,20 @@ Domains.window.CreateDomain = function(config) {
                     xtype       : MODx.expandHelp ? 'label' : 'hidden',
                     html        : _('domains.label_page_start_desc'),
                     cls         : 'desc-under'
+                }, {
+                    xtype       : 'textfield',
+                    fieldLabel  : _('domains.label_emailsender'),
+                    description : MODx.expandHelp ? '' : _('domains.label_emailsender_desc'),
+                    name        : 'emailsender',
+                    anchor      : '100%',
+                    allowBlank  : false
+                }, {
+                    xtype       : MODx.expandHelp ? 'label' : 'hidden',
+                    html        : _('domains.label_emailsender_desc'),
+                    cls         : 'desc-under'
                 }]
             }, {
                 columnWidth : .5,
-                style       : 'margin-right: 0;',
                 items       : [{
                     xtype       : 'modx-combo-language',
                     fieldLabel  : _('domains.label_language'),
@@ -368,14 +377,14 @@ Domains.window.CreateDomain = function(config) {
                     xtype       : MODx.expandHelp ? 'label' : 'hidden',
                     html        : _('domains.label_page_error_desc'),
                     cls         : 'desc-under'
+                }, {
+                    xtype       : 'checkbox',
+                    fieldLabel  : _('domains.label_primary_domain'),
+                    boxLabel    : _('domains.label_primary_domain_desc'),
+                    name        : 'primary',
+                    inputValue  : 1
                 }]
             }]
-        }, {
-            xtype       : 'checkbox',
-            hideLabel   : true,
-            boxLabel    : _('domains.primary_domain'),
-            name        : 'primary',
-            inputValue  : 1
         }]
     });
     
@@ -432,7 +441,6 @@ Domains.window.UpdateDomain = function(config) {
                         }]
                     }, {
                         columnWidth : .2,
-                        style       : 'margin-right: 0;',
                         items       : [{
                             xtype       : 'checkbox',
                             fieldLabel  : _('domains.label_active'),
@@ -479,10 +487,20 @@ Domains.window.UpdateDomain = function(config) {
                     xtype       : MODx.expandHelp ? 'label' : 'hidden',
                     html        : _('domains.label_page_start_desc'),
                     cls         : 'desc-under'
+                }, {
+                    xtype       : 'textfield',
+                    fieldLabel  : _('domains.label_emailsender'),
+                    description : MODx.expandHelp ? '' : _('domains.label_emailsender_desc'),
+                    name        : 'emailsender',
+                    anchor      : '100%',
+                    allowBlank  : false
+                }, {
+                    xtype       : MODx.expandHelp ? 'label' : 'hidden',
+                    html        : _('domains.label_emailsender_desc'),
+                    cls         : 'desc-under'
                 }]
             }, {
                 columnWidth : .5,
-                style       : 'margin-right: 0;',
                 items       : [{
                     xtype       : 'modx-combo-language',
                     fieldLabel  : _('domains.label_language'),
@@ -524,14 +542,14 @@ Domains.window.UpdateDomain = function(config) {
                     xtype       : MODx.expandHelp ? 'label' : 'hidden',
                     html        : _('domains.label_page_error_desc'),
                     cls         : 'desc-under'
+                }, {
+                    xtype       : 'checkbox',
+                    fieldLabel  : _('domains.label_primary_domain'),
+                    boxLabel    : _('domains.label_primary_domain_desc'),
+                    name        : 'primary',
+                    inputValue  : 1
                 }]
             }]
-        }, {
-            xtype       : 'checkbox',
-            hideLabel   : true,
-            boxLabel    : _('domains.primary_domain'),
-            name        : 'primary',
-            inputValue  : 1
         }]
     });
     
@@ -591,11 +609,11 @@ Domains.combo.SiteStatus = function(config) {
         remoteSort  : ['label', 'asc'],
         hiddenName  : 'site_status',
         valueField  : 'type',
-        displayField: 'label',
+        displayField : 'label',
         mode        : 'local'
     });
     
-    Domains.combo.SiteStatus.superclass.constructor.call(this,config);
+    Domains.combo.SiteStatus.superclass.constructor.call(this, config);
 };
 
 Ext.extend(Domains.combo.SiteStatus, MODx.combo.ComboBox);

@@ -3,28 +3,15 @@
     /**
      * Domains
      *
-     * Copyright 2017 by Oene Tjeerd de Bruin <modx@oetzie.nl>
-     *
-     * Domains is free software; you can redistribute it and/or modify it under
-     * the terms of the GNU General Public License as published by the Free Software
-     * Foundation; either version 2 of the License, or (at your option) any later
-     * version.
-     *
-     * Domains is distributed in the hope that it will be useful, but WITHOUT ANY
-     * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
-     * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License along with
-     * Domains; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
-     * Suite 330, Boston, MA 02111-1307 USA
+     * Copyright 2018 by Oene Tjeerd de Bruin <modx@oetzie.nl>
      */
-
-    $xpdo_meta_map['DomainsDomains']= array(
+    
+    $xpdo_meta_map['DomainsDomain'] = [
         'package'       => 'domains',
         'version'       => '1.0',
-        'table'         => 'domains_domains',
+        'table'         => 'domains_domain',
         'extends'       => 'xPDOSimpleObject',
-        'fields'        => array(
+        'fields'        => [
             'id'            => null,
             'domain'        => null,
             'scheme'        => null,
@@ -34,126 +21,140 @@
             'site_status'   => null,
             'page_start'    => null,
             'page_error'    => null,
+            'emailsender'   => null,
             'primary'       => null,
             'active'        => null,
             'editedon'      => null
-        ),
-        'fieldMeta'     => array(
-            'id'            => array(
+        ],
+        'fieldMeta'     => [
+            'id'            => [
                 'dbtype'        => 'int',
                 'precision'     => '11',
                 'phptype'       => 'integer',
                 'null'          => false,
                 'index'         => 'pk',
                 'generated'     => 'native'
-            ),
-            'domain'        => array(
+            ],
+            'domain'        => [
                 'dbtype'        => 'varchar',
                 'precision'     => '255',
                 'phptype'       => 'string',
-                'null'          => false
-            ),
-            'scheme'        => array(
+                'null'          => false,
+                'default'       => ''
+            ],
+            'scheme'        => [
                 'dbtype'        => 'varchar',
                 'precision'     => '5',
                 'phptype'       => 'string',
-                'null'          => false
-            ),
-            'base'          => array(
+                'null'          => false,
+                'default'       => ''
+            ],
+            'base'          => [
                 'dbtype'        => 'varchar',
                 'precision'     => '75',
                 'phptype'       => 'string',
                 'null'          => false,
                 'default'       => '/'
-            ),
-            'context'       => array(
+            ],
+            'context'       => [
                 'dbtype'        => 'varchar',
                 'precision'     => '75',
                 'phptype'       => 'string',
-                'null'          => false
-            ),
-            'language'      => array(
+                'null'          => false,
+                'default'       => ''
+            ],
+            'language'      => [
                 'dbtype'        => 'varchar',
                 'precision'     => '3',
                 'phptype'       => 'string',
-                'null'          => false
-            ),
-            'site_status'   => array(
+                'null'          => false,
+                'default'       => ''
+            ],
+            'site_status'   => [
                 'dbtype'        => 'int',
                 'precision'     => '1',
                 'phptype'       => 'integer',
                 'null'          => false,
                 'default'       => 0
-            ),
-            'page_start'    => array(
+            ],
+            'page_start'    => [
                 'dbtype'        => 'int',
                 'precision'     => '11',
                 'phptype'       => 'integer',
-                'null'          => false
-            ),
-            'page_error'    => array(
+                'null'          => false,
+                'default'       => 0
+            ],
+            'page_error'    => [
                 'dbtype'        => 'int',
                 'precision'     => '11',
                 'phptype'       => 'integer',
-                'null'          => false
-            ),
-            'primary'       => array(
+                'null'          => false,
+                'default'       => 0
+            ],
+            'emailsender'   => [
+                'dbtype'        => 'varchar',
+                'precision'     => '100',
+                'phptype'       => 'string',
+                'null'          => true,
+                'default'       => ''
+            ],
+            'primary'       => [
                 'dbtype'        => 'int',
                 'precision'     => '1',
                 'phptype'       => 'integer',
                 'null'          => false,
                 'default'       => 0
-            ),
-            'active'        => array(
+            ],
+            'active'        => [
                 'dbtype'        => 'int',
                 'precision'     => '1',
                 'phptype'       => 'integer',
                 'null'          => false,
                 'default'       => 1
-            ),
-            'editedon'      => array(
+            ],
+            'editedon'      => [
                 'dbtype'        => 'timestamp',
                 'phptype'       => 'timestamp',
                 'attributes'    => 'ON UPDATE CURRENT_TIMESTAMP',
                 'null'          => false
-            )
-        ),
-        'indexes'       => array(
-            'PRIMARY'       => array(
+            ]
+        ],
+        'indexes'       => [
+            'PRIMARY'       => [
                 'alias'         => 'PRIMARY',
                 'primary'       => true,
                 'unique'        => true,
-                'columns'       => array(
-                    'id'            => array(
+                'columns'       => [
+                    'id'            => [
                         'collation'     => 'A',
                         'null'          => false
-                    )
-                )
-            )
-        ),
-        'aggregates'    => array(
-            'modContext'    => array(
+                    ]
+                ]
+            ]
+        ],
+        'aggregates'    => [
+            'modContext'    => [
                 'local'         => 'context',
                 'class'         => 'modContext',
                 'foreign'       => 'key',
                 'owner'         => 'local',
                 'cardinality'   => 'one'	
-            ),
-            'modPageStart'  => array(
+            ],
+            'modPageStart'  => [
                 'local'         => 'page_start',
                 'class'         => 'modResource',
                 'foreign'       => 'id',
                 'owner'         => 'local',
                 'cardinality'   => 'one'	
-            ),
-            'modPageError'  => array(
+            ],
+            'modPageError'  => [
                 'local'         => 'page_error',
                 'class'         => 'modResource',
                 'foreign'       => 'id',
                 'owner'         => 'local',
                 'cardinality'   => 'one'	
-            )
-        )
-    );
+            ]
+        ]
+    ];
 
 ?>

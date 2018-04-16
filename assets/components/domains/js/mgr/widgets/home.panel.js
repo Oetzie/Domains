@@ -6,7 +6,6 @@ Domains.panel.Home = function(config) {
         cls         : 'container',
         items       : [{
             html        : '<h2>' + _('domains') + '</h2>',
-            id          : 'domains-header',
             cls         : 'modx-page-header'
         }, {
             layout      : 'form',

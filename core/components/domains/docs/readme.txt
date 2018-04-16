@@ -1,7 +1,7 @@
 ----------------------
 Domains
 ----------------------
-Version: 1.0.4
+Version: 1.0.5
 Author: Oene Tjeerd de Bruin
 Contact: modx@oetzie.nl
 ----------------------

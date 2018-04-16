@@ -1,6 +1,6 @@
 var Domains = function(config) {
     config = config || {};
-
+    
     Domains.superclass.constructor.call(this, config);
 };
 
